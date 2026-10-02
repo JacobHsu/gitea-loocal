@@ -1,0 +1,20 @@
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - TZ=Asia/Taipei
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__server__DOMAIN=localhost
+      - GITEA__server__ROOT_URL=http://localhost:3024/
+      - GITEA__server__SSH_DOMAIN=localhost
+      - GITEA__server__SSH_PORT=2222
+      - GITEA__security__INSTALL_LOCK=true
+    volumes:
+      - ./data:/data
+    ports:
+      - "3024:3000"   # Web UI
+      - "2222:22"     # SSH
